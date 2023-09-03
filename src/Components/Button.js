@@ -1,12 +1,14 @@
 import { useState } from "react";
 
-export default function Button({ value, answer }) {
-  const [clicked, setClicked] = useState(false);
+export default function Button({index, value, answer, selected, onAnswer, }) {
+  const className = selected === false ? "btn-primary" : value === answer ? "btn-success" : "btn-danger";
 
-
-  const className = clicked === false ? "btn-primary" : value === answer ? "btn-success" : "btn-danger";
+  function handleClicked()
+  {
+      onAnswer(index);
+  }
   return (
-    <button className={`col-md-3 btn btn-lg m-2 ${className}`} disabled={clicked} onClick={() => setClicked(true)}>
+    <button className={`col-md-3 btn btn-lg m-2 ${className}`} disabled={selected} onClick={handleClicked}>
       <h3>{value}</h3>
     </button>
   );
