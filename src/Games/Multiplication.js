@@ -65,12 +65,11 @@ function Multiplication() {
  
   function HandleButton(i) {
     const ans = numbers[i];
+    ans.selected = true;
     if (ans.num === quest.answer) {
       setPoints((p) => p + 1);
-      setNumbers((nums) => nums.map((num) => { return {...num, selected:true} } ));
-      setTimeout(StartNewGame, 400);
+      setTimeout(StartNewGame,150);
     } else {
-      ans.selected = true;
       setErrors((p) => p + 1);
     }
   }
