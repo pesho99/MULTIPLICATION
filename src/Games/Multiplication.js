@@ -3,6 +3,7 @@ import Button from "../Components/Button";
 import Question from "../Components/Question";
 import { Utilities } from "../Helpers/Utilities";
 import RangeForm from "../Components/RangeForm";
+import Counter from "../Components/Counter";
 
 function Multiplication() {
   const maxTime = 120000;
@@ -10,9 +11,7 @@ function Multiplication() {
   const [maxValue, setMax] = useState(3);
   const [points, setPoints] = useState(0);
   const [errors, setErrors] = useState(0);
-  const [timeleft, setTime] = useState(0);
-  const[timer, setTimer] = useState({});
-
+  const[started, setStarted] = useState(false);
 
   const [quest, setQuest] = useState(GenerateQuestion(minValue, maxValue));
   const [numbers, setNumbers] = useState(GenerateNumbers(maxValue));
@@ -20,9 +19,9 @@ function Multiplication() {
     <div className="container">
       <div className="row">
         <RangeForm className="col-md-6" min={minValue} max={maxValue} onValueChanged={HandleValuesChanged} />
-        <h3 className="col-md-6 text-right">TIME: <span className="text-info">{ToSeconds(timeleft)}</span></h3>
+        <Counter maxtime={maxTime} started={started} onFinished={() => setStarted(false)}/>
       </div>
-      <div className={`card text-center mt-4 ${timeleft === 0 ? "is-disabled" :""}`}>
+      <div className={`card text-center mt-4 ${!started ? "is-disabled" :""}`}>
         <div className="card-header" style={{background: '#9fcbe0'}}>
           <Question firstNum={quest.firstNum} secondNum={quest.secondNum}/>
         </div>
@@ -39,27 +38,14 @@ function Multiplication() {
     </div>
   );
 
-  function ToSeconds(time)
-  {
-    const date = new Date(time);
-    return(`${date.getMinutes()}:${String(date.getSeconds()).padStart(2,'0')}`);
-  }
-
+ 
   function HandleValuesChanged(min, max) {
     setMin(min);
     setMax(max);
     setPoints(0);
     setErrors(0);
     StartNewGame();
-    clearInterval(timer);
-
-    setTime(maxTime);
-    const newTim = setInterval(() => {
-        setTime((t) => t > 1000 ? t-=1000 : t=0);
-    }, 1000);
-    setTimeout(function( ) { clearInterval( newTim ); }, maxTime);
-    setTimer(newTim);
-
+    setStarted(true);
   }
  
   function HandleButton(i) {
