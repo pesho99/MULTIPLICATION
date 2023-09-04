@@ -2,14 +2,12 @@ import Multiplication from "./Games/Multiplication";
 import Header from "./Components/Header";
 
 function App() {
- 
   return (
-    <>
+    <div>
       <Header />
-      <Multiplication/>
-    </>
+      <Multiplication />
+    </div>
   );
 }
-
 
 export default App;
