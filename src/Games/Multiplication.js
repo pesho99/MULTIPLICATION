@@ -12,6 +12,7 @@ function Multiplication() {
   const [points, setPoints] = useState(0);
   const [errors, setErrors] = useState(0);
   const[started, setStarted] = useState(false);
+  const[gameNo, setGameNo] = useState(1);
 
   const [quest, setQuest] = useState(GenerateQuestion(minValue, maxValue));
   const [numbers, setNumbers] = useState(GenerateNumbers(maxValue));
@@ -19,7 +20,7 @@ function Multiplication() {
     <div className="container">
       <div className="row">
         <RangeForm className="col-md-6" min={minValue} max={maxValue} onValueChanged={HandleValuesChanged} />
-        <Counter maxtime={maxTime} started={started} onFinished={() => setStarted(false)}/>
+        <Counter maxtime={maxTime} started={started} onFinished={() => setStarted(false)} key={gameNo}/>
       </div>
       <div className={`card text-center mt-4 ${!started ? "is-disabled" :""}`}>
         <div className="card-header" style={{background: '#9fcbe0'}}>
@@ -44,6 +45,7 @@ function Multiplication() {
     setMax(max);
     setPoints(0);
     setErrors(0);
+    setGameNo(gameNo+1);
     StartNewGame();
     setStarted(true);
   }

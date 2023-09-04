@@ -3,7 +3,7 @@ import { useState } from "react";
 export default function Counter({started, maxtime, onFinished})
 {
     const [timeleft, setTime] = useState(maxtime);
-    const [running, setRunning] = useState(started);
+    const [running, setRunning] = useState(false);
 
     if (started && !running)
     {
