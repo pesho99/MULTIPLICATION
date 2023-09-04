@@ -1,4 +1,3 @@
-import { useState } from "react";
 
 export default function Button({index, value, answer, selected, onAnswer, }) {
   const className = selected === false ? "btn-primary" : value === answer ? "btn-success" : "btn-danger";
