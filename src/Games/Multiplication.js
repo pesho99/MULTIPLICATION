@@ -13,10 +13,9 @@ function Multiplication() {
   const [timeleft, setTime] = useState(0);
   const[timer, setTimer] = useState({});
 
-  const newQuest = GenerateQuestion(minValue, maxValue);
-  const nums = GenerateNumbers(newQuest.firstNum);
-  const [quest, setQuest] = useState(newQuest);
-  const [numbers, setNumbers] = useState(nums);
+
+  const [quest, setQuest] = useState(GenerateQuestion(minValue, maxValue));
+  const [numbers, setNumbers] = useState(GenerateNumbers(maxValue));
   return (
     <div className="container">
       <div className="row">
@@ -25,7 +24,7 @@ function Multiplication() {
       </div>
       <div className={`card text-center mt-4 ${timeleft === 0 ? "is-disabled" :""}`}>
         <div className="card-header" style={{background: '#9fcbe0'}}>
-          <Question firstNum={quest.firstNum} secondNum={quest.secondNum} showFirst={quest.showFirst}/>
+          <Question firstNum={quest.firstNum} secondNum={quest.secondNum}/>
         </div>
         <div className="card-body" >
           {numbers.map((n, i) => (
@@ -78,7 +77,12 @@ function Multiplication() {
     question.firstNum = Utilities.RandomNumber(max, min);
     question.secondNum = Utilities.RandomNumber(10);
     question.answer = question.firstNum * question.secondNum;
-    question.showFirst = Utilities.RandomNumber(2) === 2;
+    if (Utilities.RandomNumber(2) === 2)
+    {
+      let temp = question.firstNum;
+      question.firstNum = question.secondNum;
+      question.secondNum = temp;
+    }
     return question;
   }
 

@@ -1,6 +1,5 @@
 
 
-export default function Question({ firstNum, secondNum, showFirst }) {
-  const text = showFirst ? `${secondNum}x${firstNum}` : `${firstNum}x${secondNum}`;
-  return <h1>{text}</h1>;
+export default function Question({ firstNum, secondNum }) {
+  return <h1>{`${firstNum}x${secondNum}`}</h1>;
 }
