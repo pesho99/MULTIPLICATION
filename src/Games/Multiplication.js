@@ -16,6 +16,7 @@ function Multiplication() {
 
   const [quest, setQuest] = useState(GenerateQuestion(minValue, maxValue));
   const [numbers, setNumbers] = useState(GenerateNumbers(maxValue));
+
   return (
     <div className="container">
       <div className="row">
