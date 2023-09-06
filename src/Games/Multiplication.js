@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Button from "../Components/Button";
 import Question from "../Components/Question";
 import { Utilities } from "../Helpers/Utilities";
@@ -6,21 +6,25 @@ import RangeForm from "../Components/RangeForm";
 import Counter from "../Components/Counter";
 
 function Multiplication() {
+  
+  const minValue = useRef(2);
+  const maxValue = useRef(3);
+
+
   const maxTime = 120000;
-  const [minValue, setMin] = useState(2);
-  const [maxValue, setMax] = useState(3);
   const [points, setPoints] = useState(0);
   const [errors, setErrors] = useState(0);
   const[started, setStarted] = useState(false);
   const[gameNo, setGameNo] = useState(1);
 
-  const [quest, setQuest] = useState(GenerateQuestion(minValue, maxValue));
-  const [numbers, setNumbers] = useState(GenerateNumbers(maxValue));
+  const [quest, setQuest] = useState(GenerateQuestion(minValue.current, maxValue.current));
+  const [numbers, setNumbers] = useState(GenerateNumbers(maxValue.current));
+
 
   return (
     <div className="container">
       <div className="row">
-        <RangeForm className="col-md-6" min={minValue} max={maxValue} onValueChanged={HandleValuesChanged} />
+        <RangeForm className="col-md-6" min={minValue.current} max={maxValue.current} onValueChanged={HandleValuesChanged} />
         <Counter maxtime={maxTime} started={started} onFinished={() => setStarted(false)} key={gameNo}/>
       </div>
       <div className={`card text-center mt-4 ${!started ? "is-disabled" :""}`}>
@@ -42,8 +46,8 @@ function Multiplication() {
 
  
   function HandleValuesChanged(min, max) {
-    setMin(min);
-    setMax(max);
+    minValue.current = min;
+    maxValue.current = max;
     setPoints(0);
     setErrors(0);
     setGameNo(gameNo+1);
@@ -76,7 +80,7 @@ function Multiplication() {
   }
 
   function StartNewGame() {
-    const newQuest = GenerateQuestion(minValue, maxValue);
+    const newQuest = GenerateQuestion(minValue.current, maxValue.current);
     const nums = GenerateNumbers(newQuest.firstNum);
     setQuest(newQuest);
     setNumbers(nums);
