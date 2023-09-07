@@ -3,3 +3,8 @@ div.is-disabled
   pointer-events: none;
   opacity: 0.4;
 }
+hr {
+  width: 96%;
+  color: #FFFF00;
+  height: 1px;
+}

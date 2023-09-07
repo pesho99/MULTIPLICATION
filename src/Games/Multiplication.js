@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "../Components/Button";
 import Question from "../Components/Question";
 import { Utilities } from "../Helpers/Utilities";
@@ -20,7 +20,7 @@ function Multiplication() {
   const [quest, setQuest] = useState({});
   const [numbers, setNumbers] = useState([]);
 
-  useState(StartNewGame,[]);
+  useEffect(StartNewGame,[]);
 
   return (
     <div className="container">
@@ -65,16 +65,9 @@ function Multiplication() {
       setErrors((p) => p + 1);
     }
   }
-  function GenerateQuestion(min, max) {
-    const question = {};
-    question.firstNum = Utilities.RandomNumber(max, min);
-    question.secondNum = Utilities.RandomNumber(10);
-    question.answer = question.firstNum * question.secondNum;
-    return question;
-  }
 
   function StartNewGame() {
-    const newQuest = GenerateQuestion(minValue.current, maxValue.current);
+    const newQuest = Utilities.GenerateQuestion(minValue.current, maxValue.current);
     const nums = GenerateNumbers(newQuest.firstNum);
     setQuest(newQuest);
     setNumbers(nums);
