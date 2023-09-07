@@ -6,20 +6,21 @@ import RangeForm from "../Components/RangeForm";
 import Counter from "../Components/Counter";
 
 function Multiplication() {
-  
+
+  const maxTime = 120000;
   const minValue = useRef(2);
   const maxValue = useRef(3);
 
 
-  const maxTime = 120000;
   const [points, setPoints] = useState(0);
   const [errors, setErrors] = useState(0);
   const[started, setStarted] = useState(false);
   const[gameNo, setGameNo] = useState(1);
 
-  const [quest, setQuest] = useState(GenerateQuestion(minValue.current, maxValue.current));
-  const [numbers, setNumbers] = useState(GenerateNumbers(maxValue.current));
+  const [quest, setQuest] = useState({});
+  const [numbers, setNumbers] = useState([]);
 
+  useState(StartNewGame,[]);
 
   return (
     <div className="container">
@@ -51,13 +52,12 @@ function Multiplication() {
     setPoints(0);
     setErrors(0);
     setGameNo(gameNo+1);
-    StartNewGame();
     setStarted(true);
   }
  
   function HandleButton(i) {
     const ans = numbers[i];
-    ans.selected = true;
+    numbers[i] = {...ans, selected:true};
     if (ans.num === quest.answer) {
       setPoints((p) => p + 1);
       setTimeout(StartNewGame,150);
@@ -70,12 +70,6 @@ function Multiplication() {
     question.firstNum = Utilities.RandomNumber(max, min);
     question.secondNum = Utilities.RandomNumber(10);
     question.answer = question.firstNum * question.secondNum;
-    if (Utilities.RandomNumber(2) === 2)
-    {
-      let temp = question.firstNum;
-      question.firstNum = question.secondNum;
-      question.secondNum = temp;
-    }
     return question;
   }
 

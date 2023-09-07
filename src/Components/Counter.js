@@ -4,19 +4,21 @@ export default function Counter({ started, maxtime, onFinished }) {
   const [timeleft, setTime] = useState(maxtime);
 
   useEffect(() => {
+    function Reset() {
+      onFinished();
+      setTime(maxtime);
+    }
+  
     if (started) {
       const newTim = setInterval(() => {
-        setTime((t) => (t > 1000 ? (t -= 1000) : (t = 0)));
+        setTime((t) => t > 1000 ?  t -= 1000 : Reset());
       }, 1000);
-      setTimeout(() => Reset(newTim), maxtime);
+      return () => {
+        clearInterval(newTim);
+      }
     }
-  }, [started, maxtime]);
+  }, [started, maxtime, onFinished]);
 
-  function Reset(timer) {
-    clearInterval(timer);
-    onFinished();
-    setTime(maxtime);
-  }
 
   return (
     <h3 className="col-md-6 text-right">

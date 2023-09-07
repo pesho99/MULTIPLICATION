@@ -8,7 +8,7 @@ import { useState } from "react";
     
     return <form className="form-inline" onSubmit={HandleSubmit}>
       <div className="form-group">
-        <label className="mr-1" for="mininput">От: </label>
+        <label className="mr-1">От: </label>
         <input className="form-control x-sm-m3" id="mininput" value={minValue} onChange={(e) => setMin(Number(e.target.value))} />
         <label className="mr-1 ml-4">До:</label>
         <input className="form-control x-sm-3" value={maxValue} onChange={(e) => setMax(Number(e.target.value))} />
