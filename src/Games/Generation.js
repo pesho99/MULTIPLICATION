@@ -12,6 +12,7 @@ function Generation() {
   const [questions, setQuestions] = useState([]);
   const [finished, setFinished] = useState(false);
 
+
   useEffect(GenerateQuestions, []);
 
   return (
@@ -21,7 +22,7 @@ function Generation() {
       </div>
       <div className="mt-4">
         {questions.map((q, i) => (
-            <div className="row" key={i}>
+            <div className="row" >
           <GeneratedQuestion firstNum={q.firstNum} secondNum={q.secondNum} answer={q.answer} answered={q.answered} correct={q.correct} index={i} onAnswered={HandleAnsered}/>
           <hr></hr>
           </div>
@@ -49,6 +50,7 @@ function Generation() {
   function HandleMinMaxChanged(min, max) {
     minValue.current = min;
     maxValue.current = max;
+    setFinished(false);
     GenerateQuestions();
   }
 
