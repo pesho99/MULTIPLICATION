@@ -11,7 +11,8 @@ function Generation() {
 
   const [questions, setQuestions] = useState([]);
   const [finished, setFinished] = useState(false);
-
+  const [gameNo, setGameNo] = useState(1);
+  const[correct, setCorrect] = useState(0);
 
   useEffect(GenerateQuestions, []);
 
@@ -23,12 +24,13 @@ function Generation() {
       <div className="mt-4">
         {questions.map((q, i) => (
             <div className="row" >
-          <GeneratedQuestion firstNum={q.firstNum} secondNum={q.secondNum} answer={q.answer} answered={q.answered} correct={q.correct} index={i} onAnswered={HandleAnsered}/>
+          <GeneratedQuestion firstNum={q.firstNum} secondNum={q.secondNum} answer={q.answer} answered={q.answered} correct={q.correct} key={gameNo*(i+1)} index={i} onAnswered={HandleAnsered}/>
           <hr></hr>
           </div>
         ))}
       </div>
-      <button className="btn btn-primary" disabled={finished} onClick={Check}>Провери</button>
+      {!finished && <button className="btn btn-primary" onClick={Check}>Провери</button>}
+      <h3>{finished && `Правилни Отговори: ${correct}`}</h3>
     </div>
   );
 
@@ -37,6 +39,7 @@ function Generation() {
     setFinished(true);
     const newq = questions.map((q) => ({...q, answered: true}));
     setQuestions(newq);
+    setCorrect(questions.filter(q=>q.correct).length);
   }
 
   function HandleAnsered(index, firstNum, secondNum, answer)
@@ -52,6 +55,8 @@ function Generation() {
     maxValue.current = max;
     setFinished(false);
     GenerateQuestions();
+    setGameNo((g) => g+1);
+    setCorrect(0);
   }
 
   function GenerateQuestions() {
