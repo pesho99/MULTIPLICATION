@@ -2,9 +2,12 @@ import { useState, useRef, useEffect } from "react";
 import { Utilities } from "../Helpers/Utilities";
 import RangeForm from "../Components/RangeForm";
 import GeneratedQuestion from "../Components/GeneratedQuestion";
+import Counter from "../Components/Counter";
+
 
 function Generation() {
   const numQuestions = 12;
+  const maxTime = 180;
 
   const minValue = useRef(2);
   const maxValue = useRef(3);
@@ -20,10 +23,11 @@ function Generation() {
     <div className="container">
       <div className="row">
         <RangeForm className="col-md-6" min={minValue.current} max={maxValue.current} onValueChanged={HandleMinMaxChanged} />
+        <Counter maxtime={maxTime*1000} started={!finished} onFinished={Check} key={gameNo}/>
       </div>
       <div className="mt-4">
         {questions.map((q, i) => (
-            <div className="row" >
+            <div className="row" key={i}>
           <GeneratedQuestion firstNum={q.firstNum} secondNum={q.secondNum} answer={q.answer} answered={q.answered} correct={q.correct} key={gameNo*(i+1)} index={i} onAnswered={HandleAnsered}/>
           <hr></hr>
           </div>

@@ -1,15 +1,18 @@
 import Multiplication from "./Games/Multiplication";
 import Header from "./Components/Header";
 import Generation from "./Games/Generation";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
-  const game = "gen";
   return (
     <div>
+      <BrowserRouter>
       <Header />
-      {game === "gen" && <Generation/>}
-      {game === "mul" && <Multiplication/>}
-
+      <Routes>
+        <Route path="generation" element={<Generation/>}/>
+        <Route path="multiplication" element={<Multiplication/>}/>
+      </Routes>
+       </BrowserRouter>
     </div>
   );
 }

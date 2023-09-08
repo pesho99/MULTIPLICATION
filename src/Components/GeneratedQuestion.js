@@ -5,7 +5,7 @@ export default function GeneratedQuestion({ firstNum, secondNum, answer, answere
 
     const ans = useRef({firstNum: firstNum, secondNum: secondNum, answer: answer});
     const isFirst = useRef(Utilities.RandomNumber(2) === 2);
-    const replaceAns = useRef(Utilities.RandomNumber(10) < 7);
+    const replaceAns = useRef(Utilities.RandomNumber(10) < 8);
     const style = answered ? correct ? "text-success" : "text-danger" : "";
   return (
     <div className={`row col-6 text-center ${style}`}>
